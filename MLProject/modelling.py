@@ -1,3 +1,4 @@
+import argparse
 import os
 import pandas as pd
 import numpy as np
@@ -6,11 +7,13 @@ from sklearn.ensemble import RandomForestClassifier
 import mlflow
 import mlflow.sklearn
 
-# Base directory MLProject
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Argument parser
+parser = argparse.ArgumentParser()
+parser.add_argument("--data_path", type=str, required=True)
+args = parser.parse_args()
 
-# Path dataset
-DATA_PATH = os.path.join(BASE_DIR, "data_fitness_processed.csv")
+# Dataset path
+DATA_PATH = args.data_path
 
 # Load data
 df = pd.read_csv(DATA_PATH)
@@ -24,7 +27,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # MLflow setup
-mlflow.set_tracking_uri(f"file://{os.path.join(BASE_DIR, 'mlruns')}")
+mlflow.set_tracking_uri(f"file://{os.path.dirname(os.path.abspath(__file__))}/mlruns")
 mlflow.set_experiment("Fitness Experiment")
 mlflow.sklearn.autolog()
 
