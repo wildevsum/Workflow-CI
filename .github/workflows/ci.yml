@@ -45,7 +45,7 @@ jobs:
           mlflow.set_experiment("Fitness Experiment")
 
           # Load data
-          df = pd.read_csv("preprocessing/data_fitness_processed.csv")
+          df = pd.read_csv("MLProject/data_fitness_processed.csv")
           X = df.drop(columns=['is_fit'])
           y = df['is_fit']
 
@@ -67,3 +67,4 @@ jobs:
               )
               model.fit(X_train, y_train)
           EOF
+
