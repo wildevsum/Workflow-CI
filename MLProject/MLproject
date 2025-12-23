@@ -1,7 +1,9 @@
-name: fitness-mlflow-project
+name: FitnessProject
 
-conda_env: conda.yaml
+conda_env: conda.yaml   # atau conda_env.yml jika menggunakan nama lain
 
 entry_points:
   main:
-    command: "python modelling.py"
+    parameters:
+      data_path: {type: str, default: "data_fitness_processed.csv"}
+    command: "python modelling.py --data_path {data_path}"
