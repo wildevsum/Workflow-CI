@@ -6,8 +6,4 @@ entry_points:
   main:
     parameters:
       data_path: {type: str, default: "data_fitness_processed.csv"}
-      experiment_name: {type: str, default: "FitnessExperiment"}
-    command: >
-      python modelling.py
-      --data_path {data_path}
-      --experiment_name "{experiment_name}"
+    command: "python modelling.py --data_path {data_path}"
