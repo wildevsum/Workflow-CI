@@ -26,10 +26,11 @@ jobs:
 
       - name: Run MLflow Project
         run: |
-          mlflow run MLProject -P data_path=MLProject/data_fitness_processed.csv
+          mlflow run MLProject -P data_path=MLProject/data_fitness_processed.csv --no-conda
 
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
           name: mlflow-model
           path: MLProject/mlruns
+
