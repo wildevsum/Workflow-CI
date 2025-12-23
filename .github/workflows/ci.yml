@@ -1,39 +1,38 @@
-name: CI Pipeline
+name: RFmodel_Fitness_CI
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
-  build:
+  train-model:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up conda
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install mlflow==2.7.1 pandas numpy scikit-learn
+          miniconda-version: "latest"
+          activate-environment: fitness-env
+          environment-file: ./MLProject/conda.yaml
+          auto-activate-base: false
 
       - name: Run MLflow Project
+        shell: bash
+        env:
+          MLFLOW_TRACKING_URI: file:${{ github.workspace }}/MLProject/mlruns
         run: |
-          mlflow run MLProject -P data_path=MLProject/data_fitness_processed.csv --no-conda
+          cd MLProject
+          source $(conda info --base)/etc/profile.d/conda.sh
+          conda activate fitness-env
+          mlflow run . -e main -P data_path=MLProject/data_fitness_processed.csv --experiment-name FitnessExperiment
 
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mlflow-model
+          name: fitness-artifacts
           path: MLProject/mlruns
-
-
-
-
