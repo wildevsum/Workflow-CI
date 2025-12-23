@@ -1,9 +1,10 @@
 name: FitnessProject
 
-conda_env: conda.yaml   # atau conda_env.yml jika menggunakan nama lain
+conda_env: conda.yaml
 
 entry_points:
   main:
     parameters:
       data_path: {type: str, default: "data_fitness_processed.csv"}
-    command: "python modelling.py --data_path {data_path}"
+      experiment_name: {type: str, default: "FitnessExperiment"}
+    command: "python modelling.py --data_path {data_path} --experiment_name {experiment_name}"
