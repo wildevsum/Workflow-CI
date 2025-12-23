@@ -1,11 +1,11 @@
 name: fitness-env
 channels:
-  - defaults
+  - conda-forge
 dependencies:
   - python=3.10
+  - pandas
+  - numpy
+  - scikit-learn
   - pip
   - pip:
-      - pandas
-      - numpy
-      - scikit-learn
       - mlflow
