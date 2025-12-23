@@ -10,10 +10,12 @@ import mlflow.sklearn
 # Argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_path", type=str, required=True)
+parser.add_argument("--experiment_name", type=str, default="Fitness Experiment")  # Tambahkan parameter
 args = parser.parse_args()
 
 # Dataset path
 DATA_PATH = args.data_path
+EXPERIMENT_NAME = args.experiment_name
 
 # Load data
 df = pd.read_csv(DATA_PATH)
@@ -28,7 +30,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # MLflow setup
 mlflow.set_tracking_uri(f"file://{os.path.dirname(os.path.abspath(__file__))}/mlruns")
-mlflow.set_experiment("Fitness Experiment")
+mlflow.set_experiment(EXPERIMENT_NAME)  # Gunakan parameter
 mlflow.sklearn.autolog()
 
 # Training
