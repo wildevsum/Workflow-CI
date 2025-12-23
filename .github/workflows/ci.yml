@@ -29,14 +29,13 @@ jobs:
           cd MLProject
           source $(conda info --base)/etc/profile.d/conda.sh
           conda activate fitness-env
-          mlflow run . -e main \
-              -P data_path=data_fitness_processed.csv \
-              --experiment-name FitnessExperiment
-
+          mlflow run . -e main -P data_path=data_fitness_processed.csv
+          
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
           name: fitness-artifacts
           path: MLProject/mlruns
+
 
 
